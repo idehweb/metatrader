@@ -12,7 +12,7 @@ Idehweb bot;
 //int Idehweb=Idehweb::Idehweb(void);
 //Idehweb::Idehweb(void);
 //Idehweb ssss;
-//+------------------------------------------------------------------+
+//+------------------------------------------------------------------+ 
 //| Expert initialization function                                    |
 //+------------------------------------------------------------------+
 int OnInit()
@@ -61,10 +61,10 @@ void OnTick()
    static datetime timeCur = iTime(Symbol(),PERIOD_CURRENT,0);
    datetime timePre = timeCur;  
    timeCur=iTime(Symbol(),PERIOD_CURRENT,0);  
-   bool isNewBar = timeCur != timePre;  
+   bool isNewBar = timeCur != timePre;   
    //dar candle jadid mohasebat kon
    if(isNewBar) 
-     {   
+     {    
       
      //age candle jadid bood, 4 ta candle akhar o begir
       bot.getCandle(4);    
@@ -73,8 +73,8 @@ void OnTick()
      }   
   bot.checkOrderForLashkhori();   
  
-  } 
-  
+  }  
+    
  
 //+---------------------------------------------- ------------ --------+
 //| Trade function                                                   |

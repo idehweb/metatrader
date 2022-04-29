@@ -47,7 +47,7 @@ public:
    bool              SetUpPage();
    string            theColor(const double open, const double close);
    bool              isDuje(const double open, const double close, const double low, const double high);
-   void              CreateTheSign(const int i, const double high, const ENUM_OBJECT sign, const string id);
+   void              CreateTheSign(const int i, const double high, const ENUM_OBJECT sign, const string id, bool is_text = false, string text = NULL);
    bool              setOrder(const double x, const string type, const double sl, const double tp, const int index, const double high);
    bool              CheckVolumeValue(double volume, string &description);
    bool              checkOrderForLashkhori();
@@ -92,10 +92,10 @@ void Idehweb::getSameColors(int i)
 //Print("color_of_first: ",color_of_first);
 // Print("color_of_second: ",color_of_second);
 // Print("color_of_third: ",color_of_third);
-   CreateTheSign(1, NormalizeDouble(candles[1].high, Digits()), OBJ_ARROW_THUMB_UP, color_of_first);
-   CreateTheSign(2, NormalizeDouble(candles[2].high, Digits()), OBJ_ARROW_THUMB_UP, color_of_second);
-   CreateTheSign(3, NormalizeDouble(candles[3].high, Digits()), OBJ_ARROW_THUMB_UP, color_of_third);
-  // CreateTheSign(1, NormalizeDouble(candles[3].high, Digits()), OBJ_ARROW_THUMB_UP, "");
+   CreateTheSign(1, NormalizeDouble(candles[1].high, Digits()), OBJ_LABEL, color_of_first, true, candles[1].high);
+   CreateTheSign(2, NormalizeDouble(candles[2].high, Digits()), OBJ_LABEL, color_of_second, true, candles[2].high);
+   CreateTheSign(3, NormalizeDouble(candles[3].high, Digits()), OBJ_LABEL, color_of_third, true, candles[3].high);
+// CreateTheSign(1, NormalizeDouble(candles[3].high, Digits()), OBJ_ARROW_THUMB_UP, "");
    if(color_of_first == "red" && color_of_second == "red" && color_of_third == "red")
      {
       double sl = 0;
@@ -127,9 +127,8 @@ void Idehweb::RemoveSigns()
    Print("Remove signs...");
 // ArraySize()
    for(int i = 0; i < ArraySize(allObjects); i++)
-     { 
-    
-      if(allObjects[i]!=NULL)
+     {
+      if(allObjects[i] != NULL)
         {
          Print("Remove ", allObjects[i]);
          ObjectDelete(ChartID(), allObjects[i]);
@@ -177,7 +176,7 @@ void Idehweb::getCandle(int count_of_candles)
    ENUM_TIMEFRAMES t = PERIOD_CURRENT;
    ResetLastError();
    int copied = CopyRates(Symbol(), t, 0, count_of_candles, candles);
-   ArrayReverse(candles,0,WHOLE_ARRAY);
+   ArrayReverse(candles, 0, WHOLE_ARRAY);
    if(copied <= 0)
      {
       Print("Error copying price data ", GetLastError());
@@ -234,10 +233,14 @@ bool Idehweb::SetUpPage()
 string Idehweb::theColor(double open, double close)
   {
    if(open < close)
+     {
       return "green";
+     }
    else
       if(open > close)
+        {
          return "red";
+        }
       else
          return "birang";
   }
@@ -260,7 +263,7 @@ bool Idehweb::isDuje(double open, double close, double low, double high)
      }
   }
 //+------------------------------------------------------------------+
-void Idehweb::CreateTheSign(int i, double high, const ENUM_OBJECT sign, string id)
+void Idehweb::CreateTheSign(int i, double high, const ENUM_OBJECT sign, string id, bool is_text = false, string text = NULL)
   {
    if(!xxx)
      {
@@ -280,7 +283,20 @@ void Idehweb::CreateTheSign(int i, double high, const ENUM_OBJECT sign, string i
    datetime da = TimeCurrent() - (i * PeriodEnumToMinutes() * 60);
    double t = (high + (Point() * 20));
    Print("object created: ", " ", da, " ", i, " #", high, " ", id, " ", ss);
-   bool d = ObjectCreate(ChartID(), ss, sign, 0, da, t);
+   if(is_text)
+     {
+      ObjectCreate(ChartID(), ss, OBJ_TEXT, 0, da, t);
+      ObjectSetString(ChartID(), ss, OBJPROP_TEXT, text);
+      //--- set the slope angle of the text
+      ObjectSetDouble(ChartID(), ss, OBJPROP_ANGLE, 90.0);
+      //--- set anchor type
+      ObjectSetInteger(ChartID(), ss, OBJPROP_ANCHOR, ANCHOR_LEFT);
+      //ObjectSetText(ss,"Hello world!",10,"Times New Roman",Green);
+     }
+   else
+     {
+      bool d = ObjectCreate(ChartID(), ss, sign, 0, da, t);
+     }
    xxx++;
   }
 //+-
