@@ -48,7 +48,7 @@
         }
       ],
       "windows": {
-        "command": "${workspaceFolder}\\Compile-MQL.ps1"
+        "command": "${workspaceFolder}\\scripts\\Compile-MQL.ps1"
       },
       "osx": {
         "command": "${workspaceFolder}/Compile-MQL.sh"
