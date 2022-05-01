@@ -11,12 +11,15 @@
 #include <Trade\OrderInfo.mqh>
 #include <Trade\Trade.mqh>
 
+#include "Utils/Utils.mqh"
+
 // https://www.mql5.com/en/articles/2555
 //+------------------------------------------------------------------+
 //| Class Idehweb.                                              |
 //| Pupose: Base class of chart objects.                             |
 //|              Derives from class Bot.                         |
 //+------------------------------------------------------------------+
+
 class Idehweb {
  protected:
   string bot_name;  // unique name object name
@@ -189,24 +192,8 @@ void Idehweb::getCandle(int count_of_candles) {
 bool Idehweb::SetUpPage() {
   Print("==> SetUpPage();");
   // OrderCount=0;
-  ChartSetInteger(ChartID(), CHART_COLOR_CANDLE_BEAR, clrRed);
-  ChartRedraw();
-  Sleep(1000);
-  ChartSetInteger(ChartID(), CHART_COLOR_CHART_DOWN, clrRed);
-  ChartRedraw();
-  Sleep(1000);
-  ChartSetInteger(ChartID(), CHART_COLOR_CANDLE_BULL, clrGreen);
-  ChartRedraw();
-  Sleep(1000);
-  ChartSetInteger(ChartID(), CHART_COLOR_CHART_UP, clrGreen);
-  ChartRedraw();
-  Sleep(1000);
-  ChartSetInteger(ChartID(), CHART_FIRST_VISIBLE_BAR, clrAqua);
-  ChartRedraw();
-  Sleep(1000);
-  ChartSetInteger(0, CHART_COLOR_CHART_LINE, clrWhite);
-  ChartRedraw();
-  Sleep(1000);
+  SetUpChart();
+
   if (MomentumPeriod < 0) {
     IntPeriod = 14;
     Print(
