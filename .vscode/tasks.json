@@ -7,23 +7,27 @@
     {
       "label": "launch_metaeditor",
       "type": "shell",
-      "command": "C:\\Program Files\\MetaTrader 5\\metaeditor64.exe /portable"
+      "windows": {
+        "command": "C:\\Program Files\\MetaTrader 5\\metaeditor64.exe /portable"
+      },
+      "osx": {
+        "command": "%PATH% metaeditor64.exe /portable"
+      }
     },
     {
       "label": "launch_terminal",
       "type": "shell",
-      "command": "C:\\Program Files\\MetaTrader 5\\terminal64.exe /portable"
+      "windows": {
+        "command": "C:\\Program Files\\MetaTrader 5\\terminal64.exe /portable"
+      },
+      "osx": {
+        "command": "%PATH% terminal64.exe /portable"
+      }
     },
     {
       "label": "Compile-Project",
       "type": "shell",
-      "command": "${workspaceFolder}\\Compile-MQL.ps1",
-      "args": [
-        {
-          "value": "${file}",
-          "quoting": "strong"
-        }
-      ],
+
       "presentation": {
         "echo": false,
         "reveal": "always",
@@ -36,7 +40,19 @@
         "kind": "build",
         "isDefault": true
       },
-      "problemMatcher": []
+      "problemMatcher": [],
+      "args": [
+        {
+          "value": "${file}",
+          "quoting": "strong"
+        }
+      ],
+      "windows": {
+        "command": "${workspaceFolder}\\Compile-MQL.ps1"
+      },
+      "osx": {
+        "command": "${workspaceFolder}/Compile-MQL.sh"
+      }
     },
     {
       "label": "launch_offline_help",
@@ -48,10 +64,15 @@
         "panel": "shared",
         "showReuseMessage": false
       },
-      "command": "hh.exe",
       "args": [
         "mk:@MSITStore:C:\\Users\\GoodBoy\\AppData\\Roaming\\MetaQuotes\\Terminal\\Help\\metaeditor.chm::/${selectedText}.htm"
-      ]
+      ],
+      "windows": {
+        "command": "hh.exe"
+      },
+      "osx": {
+        "command": "open"
+      }
     }
   ]
 }
