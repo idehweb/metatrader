@@ -15,8 +15,7 @@ Idehweb bot;
 //+------------------------------------------------------------------+
 //| Expert initialization function                                    |
 //+------------------------------------------------------------------+
-int OnInit()
-{
+int OnInit() {
   //--- create timer
   // EventSetTimer(60);
   //   EventSetTimer((15*60));
@@ -31,8 +30,7 @@ int OnInit()
 //+---------------------------------------------- -------- ------------+
 //| Expert deinitialization function                                   |
 //+--------------------------------------------------- ---------------+
-void OnDeinit(const int reason)
-{
+void OnDeinit(const int reason) {
   // Idehweb::
   //--- destroy timer
   EventKillTimer();
@@ -41,8 +39,7 @@ void OnDeinit(const int reason)
 //+--------------------------------------------- ------------- --------+
 //| Timer function                                                     |
 //+------------------------------------------ ------------------------+
-void OnTimer()
-{
+void OnTimer() {
   //---
 }
 //+------------------------------------------------------------------+
@@ -61,9 +58,7 @@ void OnTick()
   timeCur = iTime(Symbol(), PERIOD_CURRENT, 0);
   bool isNewBar = timeCur != timePre;
   // dar candle jadid mohasebat kon
-  if (isNewBar)
-  {
-
+  if (isNewBar) {
     // age candle jadid bood, 4 ta candle akhar o begir
     bot.getCandle(4);
     bot.getSameColors(3);
@@ -74,8 +69,7 @@ void OnTick()
 //+---------------------------------------------- ------------ --------+
 //| Trade function                                                   |
 //+------------------------------------------------------------------+
-void OnTrade()
-{
+void OnTrade() {
   //---
   // Idehweb::getCandle();
 }
@@ -84,8 +78,7 @@ void OnTrade()
 //+------------------------------------------------------------------+
 void OnTradeTransaction(const MqlTradeTransaction &trans,
                         const MqlTradeRequest &request,
-                        const MqlTradeResult &result)
-{
+                        const MqlTradeResult &result) {
   //---
 }
 //+------------------------------------------------------------------+
